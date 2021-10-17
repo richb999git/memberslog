@@ -12,11 +12,11 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Name -->
+            <!-- Username -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="user_name" :value="__('Username')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" required autofocus />
             </div>
 
             <!-- Email Address -->
@@ -24,6 +24,27 @@
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <!-- Forename -->
+            <div class="mt-4">
+                <x-label for="forename" :value="__('Forename')" />
+
+                <x-input id="forename" class="block mt-1 w-full" type="text" name="forename" :value="old('forename')" required autofocus />
+            </div>
+
+            <!-- Surname -->
+            <div class="mt-4">
+                <x-label for="surname" :value="__('Surname')" />
+
+                <x-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')" required autofocus />
+            </div>
+
+            <!-- Is Administrator? -->
+            <div class="mt-4">
+                <x-label for="is_admin" :value="__('Administrator?')" />
+
+                <x-input id="is_admin" class="block mt-1" type="checkbox" name="is_admin" :value="old('is_admin')" autofocus/>
             </div>
 
             <!-- Password -->

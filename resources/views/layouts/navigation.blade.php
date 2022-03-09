@@ -4,13 +4,9 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                
                 <div class="flex-shrink-0 flex items-center">
-                    Members section
+                    <a href="/">Members section</a>
                 </div>
-
-                <!-- Navigation Links -->
-                
             </div>
             @auth
                 <!-- Settings Dropdown -->
@@ -29,7 +25,23 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Authentication -->
+                            @if (Route::has('register') && Auth::user()->is_admin)
+                                <x-dropdown-link :href="route('register')">
+                                    {{ __('Register a user') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('members.index')">
+                                    {{ __('Display members') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('membershipTypes.index')">
+                                    {{ __('Edit membership types') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('changeMemberPassword')">
+                                    {{ __('Change a member\'s password') }}
+                                </x-dropdown-link>
+                            @endif
+                            <x-dropdown-link :href="route('changePassword')">
+                                {{ __('Change your password') }}
+                            </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
@@ -39,12 +51,6 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                </div>
-            @else
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500">Register</a>
-                    @endif
                 </div>
             @endauth
 
@@ -62,7 +68,6 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        
 
         <!-- Responsive Settings Options -->
         @auth
@@ -83,14 +88,25 @@
                         </x-responsive-nav-link>
                     </form>
                 </div>
-            </div>
-        @else
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                @if (Route::has('register'))
-                    <x-responsive-nav-link :href="route('register')">
-                        {{ __('Register') }}
-                    </x-responsive-nav-link>
-                @endif
+                <div class="pt-4 pb-1 border-t border-gray-200">
+                    @if (Auth::user()->is_admin)
+                        <x-responsive-nav-link :href="route('register')">
+                            {{ __('Register a user') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('members.index')">
+                            {{ __('Display members') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('membershipTypes.index')">
+                            {{ __('Edit membership types') }}
+                        </x-responsive-nav-link>
+                        <x-dropdown-link :href="route('changeMemberPassword')">
+                            {{ __('Change a member\'s password') }}
+                        </x-dropdown-link>
+                    @endif
+                    <x-dropdown-link :href="route('changePassword')">
+                        {{ __('Change your password') }}
+                    </x-dropdown-link>
+                </div>
             </div>
         @endauth
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\MembershipType;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +21,13 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $user = Auth::user();
+
+        if (!$user->is_admin) return redirect()->route('home');
+
+        return view('auth.register', [
+            'membership_types' => MembershipType::all()
+        ]);
     }
 
     /**
@@ -39,6 +46,8 @@ class RegisteredUserController extends Controller
             'surname' => ['required', 'string', 'max:255', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'membership_type' => ['required_with:membership_end_date'],
+            'membership_end_date' => ['nullable', 'after:today', 'required_with:membership_type']
         ]);
 
         $user = User::create([
@@ -48,6 +57,8 @@ class RegisteredUserController extends Controller
             'is_admin'=> $request->is_admin ? true : false,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'membership_type_id' => $request->membership_type == "" ? NULL : $request->membership_type,
+            'membership_end_date' => $request->membership_end_date
         ]);
 
         event(new Registered($user));

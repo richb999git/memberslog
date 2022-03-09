@@ -11,11 +11,13 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
+                //->middleware('guest') // ony admins can register in this app
+                ->middleware('auth') // ony admins can register in this app
                 ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
+                //->middleware('guest'); // ony admins can register in this app
+                ->middleware('auth'); // ony admins can register in this app
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')

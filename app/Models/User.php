@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function membership_type()
+    {
+        return $this->belongsTo(MembershipType::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +28,9 @@ class User extends Authenticatable
         'password',
         'is_admin',
         'forename',
-        'surname'
+        'surname',
+        'membership_end_date',
+        'membership_type_id'
     ];
 
     /**

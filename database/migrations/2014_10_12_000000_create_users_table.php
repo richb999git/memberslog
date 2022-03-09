@@ -22,6 +22,11 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->default(false);
             $table->string('forename');
             $table->string('surname');
+            $table->timestamp('membership_end_date')->nullable();
+            $table->foreignId('membership_type_id')->nullable();
+            $table->boolean('membership_lapsed')->default(false);
+            $table->string('member_notes')->nullable();
+            $table->string('admin_notes')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

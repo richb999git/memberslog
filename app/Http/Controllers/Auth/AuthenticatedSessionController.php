@@ -7,9 +7,27 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
 {
+    public function __construct()
+    {
+        $adminExists = User::where("is_admin", true)->first();
+
+        if (!$adminExists) {
+            User::create([
+                'user_name' => $_ENV["ADMIN_USER_NAME"],
+                'forename' => $_ENV["ADMIN_USER_FORENAME"],
+                'surname' => $_ENV["ADMIN_USER_SURNAME"],
+                'is_admin'=> true,
+                'email' => $_ENV["ADMIN_USER_EMAIL"],
+                'password' => Hash::make($_ENV["ADMIN_USER_PASSWORD"])
+            ]);
+        }
+    }
+
     /**
      * Display the login view.
      *

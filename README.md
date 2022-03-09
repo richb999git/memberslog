@@ -11,7 +11,7 @@ To set up:
 
 set the APP_KEY as one in .env file
 
-add the postgres free database (this seems to have added the DATABASE_URL config var)
+add the postgres free database (this seems to have added the DATABASE_URL config var)  
 add the DB_CONNECTION and DB_PORT variables
 
 add the specific application variables for the ADMIN

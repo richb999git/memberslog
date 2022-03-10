@@ -49,8 +49,8 @@
     <div class="{{$hidden}}">
         <div class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
             <div class="bg-white px-16 py-14 text-center rounded-md shadow-lg">
-                <h1 class="text-xl mb-4 font-bold text-slate-500">Email not found</h1>
-                <p class="text-md mb-4 text-slate-500">No member with that email.</p>
+                <h1 class="text-xl mb-4 font-bold text-slate-500">Password change error</h1>
+                <p class="text-md mb-4 text-slate-500">Cannot change the password.</p>
                 <a
                     href="{{ url('changeMemberPassword') }}"
                     class="ml-0 mb-1 p-2 pr-4 pl-4 rounded-sm ring-2 bg-indigo-200 text-black-600 hover:bg-indigo-400 hover:text-white">

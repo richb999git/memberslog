@@ -73,7 +73,7 @@ class ChangePasswordController extends Controller
     {
         $member = User::where('email', $request->email)->first();
 
-        if (!$member) {
+        if (!$member || $member->id === 1) {
             return view('auth.change-password', [
                 'request' => $request,
                 'member' => true,
